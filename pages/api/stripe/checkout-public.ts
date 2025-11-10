@@ -12,7 +12,7 @@ if (!stripeSecret) {
 }
 
 const stripe = new Stripe(stripeSecret, {
-  apiVersion: '2024-11-20.acacia',
+  apiVersion: '2025-02-24.acacia',
   appInfo: {
     name: 'Hello Telle',
     version: '1.0.0',
