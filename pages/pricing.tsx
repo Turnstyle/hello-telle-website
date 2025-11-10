@@ -47,13 +47,14 @@ export default function PricingPage() {
 
       if (!error && data) {
         const aggregated = data.reduce((acc, vote) => {
-          if (!acc[vote.plan_tier]) {
-            acc[vote.plan_tier] = { upvotes: 0, downvotes: 0 };
+          const tier = vote.plan_tier as Tier;
+          if (!acc[tier]) {
+            acc[tier] = { upvotes: 0, downvotes: 0 };
           }
           if (vote.vote_type === 'upvote') {
-            acc[vote.plan_tier].upvotes++;
+            acc[tier].upvotes++;
           } else {
-            acc[vote.plan_tier].downvotes++;
+            acc[tier].downvotes++;
           }
           return acc;
         }, {} as Record<Tier, { upvotes: number; downvotes: number }>);
