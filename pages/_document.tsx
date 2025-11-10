@@ -35,8 +35,8 @@ export default function Document() {
         <meta property="og:title" content={siteTitle} />
         <meta property="og:description" content={siteDescription} />
         <meta property="og:image" content={`${siteUrl}/og-image.png`} />
-        <meta property="og:image:width" content="320" />
-        <meta property="og:image:height" content="240" />
+        <meta property="og:image:width" content="240" />
+        <meta property="og:image:height" content="180" />
         <meta property="og:site_name" content="Hello Telle" />
 
         {/* Twitter */}
