@@ -3,42 +3,11 @@
  */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-cornflower-50: #f0f4fe;
-  --color-cornflower-100: #dde6fc;
-  --color-cornflower-200: #c3d4fb;
-  --color-cornflower-300: #9ab7f8;
-  --color-cornflower-400: #6a91f3;
-  --color-cornflower-500: #6495ED;
-  --color-cornflower-600: #4771d9;
-  --color-cornflower-700: #3c5dc7;
-  --color-cornflower-800: #354da2;
-  --color-cornflower-900: #304380;
-  --color-cornflower-950: #212b4e;
-  
-  --color-butter-50: #fffef5;
-  --color-butter-100: #fffbeb;
-  --color-butter-200: #fff6c8;
-  --color-butter-300: #FFF1A8;
-  --color-butter-400: #ffe87a;
-  --color-butter-500: #ffd940;
-  --color-butter-600: #f5c211;
-  --color-butter-700: #d19a07;
-  --color-butter-800: #a8780a;
-  --color-butter-900: #8a620e;
-  --color-butter-950: #523603;
-  
-  --color-warmWhite: #fefefe;
-  
-  --font-sans: 'Nunito Sans', system-ui, sans-serif;
-  
-  --animate-fade-in: fadeIn 0.5s ease-in-out;
-  --animate-slide-up: slideUp 0.5s ease-out;
-  --animate-pulse-soft: pulseSoft 2s ease-in-out infinite;
-  --animate-float: float 3s ease-in-out infinite;
-  
+@layer base {
   @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
