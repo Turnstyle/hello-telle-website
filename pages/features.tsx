@@ -11,43 +11,49 @@ export default function FeaturesPage() {
   const features = [
     {
       icon: MessageCircle,
-      title: 'Natural Conversations',
-      description: 'Hello Telle engages in warm, flowing conversations that feel genuinely human. Topics adapt to your loved one\'s interests and memories.',
+      title: 'Warm, Natural Conversations',
+      description:
+        "HelloTelle blends human connection with intelligent support, creating conversations that feel personal, flowing, and centered on your loved one&rsquo;s life, interests, and routines.",
       color: 'from-cornflower-100 to-butter-100',
       iconColor: 'text-cornflower-700',
     },
     {
       icon: Heart,
-      title: 'Emotional Intelligence',
-      description: 'Advanced mood detection notices subtle changes in tone, energy, and sentiment--alerting you to potential concerns with care and empathy.',
+      title: 'Gentle Emotional & Behavioral Awareness',
+      description:
+        'Behind each friendly call, advanced listening tools help us notice subtle shifts in mood, tone, or routine — offering early insights while always respecting dignity and privacy.',
       color: 'from-butter-200 to-butter-300',
       iconColor: 'text-butter-800',
     },
     {
       icon: Calendar,
-      title: 'Flexible Scheduling',
-      description: 'Schedule daily, weekly, or custom call patterns. Hello Telle can also make spontaneous check-ins based on your preferences.',
+      title: 'Flexible, Intelligent Scheduling',
+      description:
+        "Choose daily, weekly, or custom call patterns that fit your loved one&rsquo;s rhythm. Our system can also suggest or trigger spontaneous check-ins when additional reassurance might help.",
       color: 'from-cornflower-100 to-cornflower-200',
       iconColor: 'text-cornflower-700',
     },
     {
       icon: BarChart,
-      title: 'Beautiful Summaries',
-      description: 'After each call, receive elegant summaries with key topics, mood insights, and memorable quotes--designed for quick scanning or deep reading.',
+      title: 'Clear, Meaningful Summaries',
+      description:
+        'Each conversation generates a simple, beautifully formatted summary powered by smart analysis — giving families high-level emotional cues, helpful observations, and memorable moments at a glance.',
       color: 'from-butter-100 to-butter-200',
       iconColor: 'text-butter-800',
     },
     {
       icon: Bell,
-      title: 'Smart Alerts',
-      description: 'Get notified when Hello Telle detects health concerns, changes in routine, or when your loved one mentions needing help.',
+      title: 'Thoughtful, Insight-Driven Alerts',
+      description:
+        'When we detect meaningful changes — like skipped medication, unusual mood patterns, or disruptions in routine — HelloTelle sends you a gentle, timely alert so you can stay ahead of potential concerns.',
       color: 'from-cornflower-50 to-cornflower-100',
       iconColor: 'text-cornflower-700',
     },
     {
       icon: Sparkles,
-      title: 'Almost Magical',
-      description: 'Hello Telle listens, learns, and remembers what matters. Every conversation feels personal, warm, and genuinely caring.',
+      title: 'Smart Personalization That Feels Human',
+      description:
+        "With every call, HelloTelle learns what matters: favorite topics, daily habits, milestones, and preferences. The technology works quietly in the background — making each conversation warmer, richer, and truly personal.",
       color: 'from-butter-100 to-cornflower-100',
       iconColor: 'text-cornflower-600',
     },
@@ -59,9 +65,9 @@ export default function FeaturesPage() {
       <div className="min-h-screen">
         <section className="gradient-bg py-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="mb-6">Features Built with Love</h1>
+            <h1 className="mb-6">Features Designed with Care</h1>
             <p className="text-xl text-slate-600 leading-relaxed">
-              Every feature designed to strengthen connection between generations and provide peace of mind for caregivers.
+              Thoughtfully built to strengthen connection across generations — powered by smart technology, delivered with human warmth.
             </p>
           </div>
         </section>
@@ -92,9 +98,9 @@ export default function FeaturesPage() {
         <section className="py-20 px-4 gradient-bg">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="mb-4">What You'll Receive After Each Call</h2>
+              <h2 className="mb-4">What You&rsquo;ll Receive After Each Call</h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Beautiful, actionable summaries that keep you connected and informed about your loved one's well-being.
+                Each conversation generates a simple, high-level update designed to keep you informed and reassured — without being intrusive.
               </p>
             </div>
 
@@ -114,7 +120,7 @@ export default function FeaturesPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="mb-6">Ready to Get Started?</h2>
             <p className="text-xl text-slate-600 mb-8">
-              Join our waitlist to be among the first families to experience Hello Telle.
+              Join our waitlist to be among the first families to experience HelloTelle.
             </p>
             <Link href="/waitlist">
               <Button size="lg" className="animate-pulse-soft">
@@ -127,4 +133,3 @@ export default function FeaturesPage() {
     </>
   );
 }
-

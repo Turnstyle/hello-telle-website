@@ -16,7 +16,7 @@ function ConversationsPage() {
             <Search className="w-16 h-16 text-slate-300 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-slate-700 mb-2">Coming Soon</h3>
             <p className="text-slate-600">
-              Your conversation archive will appear here once you start using Hello Telle.
+              Your conversation archive will appear here once you start using HelloTelle.
             </p>
           </div>
         </div>

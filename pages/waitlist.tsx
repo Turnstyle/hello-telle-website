@@ -49,7 +49,7 @@ export default function WaitlistPage() {
       }
 
       if (existing) {
-        showToast('You\'re already on the waitlist!', 'info');
+        showToast('You&rsquo;re already on the waitlist!', 'info');
         setLoading(false);
         return;
       }
@@ -128,7 +128,7 @@ export default function WaitlistPage() {
             <Heart className="w-16 h-16 text-cornflower-600 mx-auto mb-6" fill="currentColor" />
             <h1 className="mb-4">Join the Waitlist</h1>
             <p className="text-lg text-slate-600">
-              Be among the first families to experience Hello Telle. Only 25 alpha spots available.
+              Be among the first families to experience HelloTelle. Only 25 alpha spots available.
             </p>
           </div>
 
@@ -162,7 +162,7 @@ export default function WaitlistPage() {
                 </form>
 
                 <p className="text-sm text-slate-500 mt-6 text-center">
-                  We\'ll never spam you. Unsubscribe anytime.
+                  We&rsquo;ll never spam you. Unsubscribe anytime.
                 </p>
               </div>
             )}
@@ -236,9 +236,9 @@ export default function WaitlistPage() {
                   <CheckCircle className="w-10 h-10 text-white" />
                 </div>
 
-                <h3 className="text-3xl font-bold mb-4">You\'re In!</h3>
+                <h3 className="text-3xl font-bold mb-4">You&rsquo;re In!</h3>
                 <p className="text-lg text-slate-600 mb-6">
-                  Welcome to the Hello Telle family. We\'re thrilled to have you.
+                  Welcome to the HelloTelle family. We&rsquo;re thrilled to have you.
                 </p>
 
                 {position && (
@@ -253,15 +253,15 @@ export default function WaitlistPage() {
                   <ol className="space-y-3 text-slate-600 text-sm">
                     <li className="flex gap-3">
                       <span className="font-bold text-cornflower-600">1.</span>
-                      <span>You\'ll receive a confirmation email shortly</span>
+                      <span>You&rsquo;ll receive a confirmation email shortly</span>
                     </li>
                     <li className="flex gap-3">
                       <span className="font-bold text-cornflower-600">2.</span>
-                      <span>We\'ll send you alpha updates and sneak peeks as we build</span>
+                      <span>We&rsquo;ll send you alpha updates and sneak peeks as we build</span>
                     </li>
                     <li className="flex gap-3">
                       <span className="font-bold text-cornflower-600">3.</span>
-                      <span>When we launch (Spring 2025), you\'ll get first access</span>
+                      <span>When we launch (Spring 2025), you&rsquo;ll get first access</span>
                     </li>
                   </ol>
                 </div>

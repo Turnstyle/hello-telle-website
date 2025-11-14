@@ -14,8 +14,8 @@ export interface StripeProduct {
 export const stripeProducts: StripeProduct[] = [
   {
     priceId: 'price_1SRfmfLF14MFaukJ5KbJo5j2',
-    name: 'Hello Telle Waitlist Deposit',
-    description: 'Secure your spot on the Hello Telle waitlist with a refundable deposit.',
+    name: 'HelloTelle Waitlist Deposit',
+    description: 'Secure your spot on the HelloTelle waitlist with a refundable deposit.',
     mode: 'payment',
     price: 5.00,
     currency: 'usd',

@@ -59,7 +59,7 @@ export default function WaitlistSuccessPage() {
 
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Payment Successful!</h1>
             <p className="text-xl text-slate-600 mb-8">
-              Welcome to the Hello Telle family. We're thrilled to have you on the waitlist.
+              Welcome to the HelloTelle family. We&rsquo;re thrilled to have you on the waitlist.
             </p>
 
             {loading ? (
@@ -85,15 +85,15 @@ export default function WaitlistSuccessPage() {
                 <ol className="space-y-3 text-slate-600">
                   <li className="flex gap-3">
                     <span className="font-bold text-cornflower-600 flex-shrink-0">1.</span>
-                    <span>You'll receive a confirmation email at <strong className="text-slate-900">{email}</strong></span>
+                    <span>You&rsquo;ll receive a confirmation email at <strong className="text-slate-900">{email}</strong></span>
                   </li>
                   <li className="flex gap-3">
                     <span className="font-bold text-cornflower-600 flex-shrink-0">2.</span>
-                    <span>We'll send you alpha updates and sneak peeks as we build</span>
+                    <span>We&rsquo;ll send you alpha updates and sneak peeks as we build</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="font-bold text-cornflower-600 flex-shrink-0">3.</span>
-                    <span>When we launch (Spring 2025), you'll get first access with exclusive founder pricing</span>
+                    <span>When we launch (Spring 2025), you&rsquo;ll get first access with exclusive founder pricing</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="font-bold text-cornflower-600 flex-shrink-0">4.</span>
@@ -120,7 +120,7 @@ export default function WaitlistSuccessPage() {
 
           <div className="mt-8 text-center">
             <p className="text-slate-600 mb-4">
-              Have questions? We're here to help!
+              Have questions? We&rsquo;re here to help!
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/faq">
@@ -128,7 +128,7 @@ export default function WaitlistSuccessPage() {
                   View FAQ
                 </Button>
               </Link>
-              <Link href="/dashboard/support">
+              <Link href="/support">
                 <Button variant="secondary" size="sm">
                   Contact Support
                 </Button>
@@ -140,4 +140,3 @@ export default function WaitlistSuccessPage() {
     </>
   );
 }
-

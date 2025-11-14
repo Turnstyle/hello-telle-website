@@ -2,18 +2,17 @@
  * Custom hook for authentication state management
  * Handles missing Supabase configuration gracefully
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { User } from '@supabase/supabase-js';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const supabaseAvailable = useMemo(() => isSupabaseConfigured(), []);
+  const [loading, setLoading] = useState(() => supabaseAvailable);
 
   useEffect(() => {
-    // If Supabase is not configured, skip auth initialization
-    if (!isSupabaseConfigured()) {
-      setLoading(false);
+    if (!supabaseAvailable) {
       return;
     }
 
@@ -30,23 +29,18 @@ export function useAuth() {
     });
 
     // Listen for auth changes
-    try {
-      const {
-        data: { subscription },
-      } = supabase.auth.onAuthStateChange((_event, session) => {
-        setUser(session?.user ?? null);
-        setLoading(false);
-      });
-
-      return () => subscription.unsubscribe();
-    } catch (error) {
-      console.warn('Error setting up auth state listener:', error);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
       setLoading(false);
-    }
-  }, []);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [supabaseAvailable]);
 
   const signOut = async () => {
-    if (!isSupabaseConfigured()) {
+    if (!supabaseAvailable) {
       console.warn('Cannot sign out: Supabase not configured');
       return;
     }
@@ -63,4 +57,3 @@ export function useAuth() {
     signOut,
   };
 }
-

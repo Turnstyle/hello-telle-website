@@ -14,7 +14,7 @@ if (!stripeSecret) {
 const stripe = new Stripe(stripeSecret, {
   apiVersion: '2025-02-24.acacia',
   appInfo: {
-    name: 'Hello Telle',
+    name: 'HelloTelle',
     version: '1.0.0',
   },
 });
@@ -22,7 +22,18 @@ const stripe = new Stripe(stripeSecret, {
 type ExpectedType = 'string' | { values: string[] };
 type Expectations<T> = { [K in keyof T]: ExpectedType };
 
-function validateParameters<T extends Record<string, any>>(
+type CheckoutMode = 'payment' | 'subscription';
+
+interface CheckoutPublicRequestBody {
+  price_id: string;
+  success_url: string;
+  cancel_url: string;
+  mode: CheckoutMode;
+  customer_email: string;
+  metadata?: Stripe.MetadataParam;
+}
+
+function validateParameters<T extends Record<string, unknown>>(
   values: T,
   expected: Expectations<T>
 ): string | undefined {
@@ -38,7 +49,7 @@ function validateParameters<T extends Record<string, any>>(
         return `Expected parameter ${parameter} to be a string got ${JSON.stringify(value)}`;
       }
     } else {
-      if (!expectation.values.includes(value)) {
+      if (typeof value !== 'string' || !expectation.values.includes(value)) {
         return `Expected parameter ${parameter} to be one of ${expectation.values.join(', ')}`;
       }
     }
@@ -61,7 +72,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { price_id, success_url, cancel_url, mode, customer_email, metadata } = req.body;
+    const { price_id, success_url, cancel_url, mode, customer_email, metadata } =
+      req.body as Partial<CheckoutPublicRequestBody>;
 
     const error = validateParameters(
       { price_id, success_url, cancel_url, mode },
@@ -85,7 +97,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const customer = await stripe.customers.create({
       email: customer_email,
-      metadata: metadata || {},
+      metadata: metadata ?? {},
     });
 
     console.log(`Created new Stripe customer ${customer.id} for email ${customer_email}`);
@@ -102,17 +114,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       mode,
       success_url,
       cancel_url,
-      metadata: metadata || {},
+      metadata: metadata ?? {},
     });
 
     console.log(`Created checkout session ${session.id} for customer ${customer.id}`);
 
     res.setHeader('Access-Control-Allow-Origin', '*');
     return res.status(200).json({ sessionId: session.id, url: session.url });
-  } catch (error: any) {
-    console.error(`Checkout error: ${error.message}`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    console.error(`Checkout error: ${message}`);
     res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: message });
   }
 }
-

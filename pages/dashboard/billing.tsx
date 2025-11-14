@@ -24,7 +24,7 @@ function BillingPage() {
               <CreditCard className="w-8 h-8 text-slate-400" />
             </div>
             <p className="text-slate-600 mb-4">
-              You\'re currently on the free plan with 1 summary per month.
+              You&rsquo;re currently on the free plan with 1 summary per month.
             </p>
             <Link href="/pricing" className="btn-primary inline-flex">
               Upgrade Plan

@@ -2,47 +2,19 @@
  * Blog page listing articles
  */
 import Link from 'next/link';
+import Image from 'next/image';
 import { Clock, User } from 'lucide-react';
 import { Navigation } from '@/components/Navigation';
+import { blogPosts } from '@/data/blogPosts';
 
 export default function BlogPage() {
-  const posts = [
-    {
-      id: 1,
-      title: '5 Signs Your Senior Parent Needs More Social Connection',
-      excerpt: 'Learn to recognize the subtle signs of loneliness and isolation in elderly loved ones, and what you can do about it.',
-      author: 'Dr. Sarah Chen',
-      date: 'Nov 5, 2024',
-      readTime: '6 min read',
-      category: 'Caregiving Tips',
-    },
-    {
-      id: 2,
-      title: 'How AI is Revolutionizing Senior Care (Without Losing the Human Touch)',
-      excerpt: 'Exploring the balance between technology and empathy in modern eldercare solutions.',
-      author: 'Michael Torres',
-      date: 'Nov 1, 2024',
-      readTime: '8 min read',
-      category: 'Technology',
-    },
-    {
-      id: 3,
-      title: 'The Caregiver Guilt Trap: Why Feeling Bad Doesn\'t Help Anyone',
-      excerpt: 'A frank conversation about the emotional burden of long-distance caregiving and how to find peace.',
-      author: 'Jennifer Martinez',
-      date: 'Oct 28, 2024',
-      readTime: '7 min read',
-      category: 'Mental Health',
-    },
-  ];
-
   return (
     <>
       <Navigation />
       <div className="min-h-screen">
         <section className="gradient-bg py-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="mb-6">The Hello Telle Blog</h1>
+            <h1 className="mb-6">The HelloTelle Blog</h1>
             <p className="text-xl text-slate-600">
               Insights on caregiving, senior wellness, and staying connected across generations
             </p>
@@ -52,9 +24,17 @@ export default function BlogPage() {
         <section className="py-20 px-4 bg-white">
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
+              {blogPosts.map((post) => (
                 <Link key={post.id} href={`/blog/${post.id}`} className="card-hover group">
-                  <div className="aspect-video bg-gradient-to-br from-cornflower-100 to-cornflower-200 rounded-xl mb-4"></div>
+                  <div className="relative aspect-video rounded-xl mb-4 overflow-hidden bg-slate-100">
+                    <Image
+                      src={post.cardImage}
+                      alt={post.imageAlt}
+                      fill
+                      sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
                   <div className="inline-block px-3 py-1 bg-cornflower-100 text-cornflower-800 text-xs font-semibold rounded-full mb-3">
                     {post.category}
                   </div>
@@ -82,4 +62,3 @@ export default function BlogPage() {
     </>
   );
 }
-

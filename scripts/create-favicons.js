@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /**
  * Script to create favicons with white circular backgrounds
  * Uses sharp for image processing
@@ -8,7 +9,6 @@ const path = require('path');
 
 const publicDir = path.join(__dirname, '..', 'public');
 const logoPath = path.join(publicDir, '57772_hellotelle_DP+RM-01.png');
-const sizes = [16, 32, 180, 192, 512];
 
 async function createFaviconWithWhiteCircle(size) {
   // Load the logo - resize to 85% of circle size for padding

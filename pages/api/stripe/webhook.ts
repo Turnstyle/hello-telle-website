@@ -18,7 +18,7 @@ if (!stripeSecret || !stripeWebhookSecret || !supabaseUrl || !supabaseServiceRol
 const stripe = new Stripe(stripeSecret, {
   apiVersion: '2025-02-24.acacia',
   appInfo: {
-    name: 'Hello Telle',
+    name: 'HelloTelle',
     version: '1.0.0',
   },
 });
@@ -213,17 +213,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
       event = stripe.webhooks.constructEvent(body, signature, stripeWebhookSecret!);
-    } catch (error: any) {
-      console.error(`Webhook signature verification failed: ${error.message}`);
-      return res.status(400).json({ error: `Webhook signature verification failed: ${error.message}` });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`Webhook signature verification failed: ${message}`);
+      return res.status(400).json({ error: `Webhook signature verification failed: ${message}` });
     }
 
     await handleEvent(event);
 
     return res.status(200).json({ received: true });
-  } catch (error: any) {
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
     console.error('Error processing webhook:', error);
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: message });
   }
 }
-

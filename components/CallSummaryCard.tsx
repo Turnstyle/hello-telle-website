@@ -10,9 +10,9 @@ export interface CallSummary {
   time: string;
   duration: string;
   mood: 'positive' | 'neutral' | 'concerned';
-  moodScore: number;
+  moodDescription: string;
   topics: string[];
-  highlights: string[];
+  generalNotes: string;
   quote?: string;
   alert?: {
     type: 'info' | 'warning';
@@ -36,17 +36,6 @@ export function CallSummaryCard({ summary }: CallSummaryCardProps) {
     }
   };
 
-  const getMoodColor = () => {
-    switch (summary.mood) {
-      case 'positive':
-        return 'bg-cornflower-500';
-      case 'neutral':
-        return 'bg-amber-400';
-      case 'concerned':
-        return 'bg-butter-500';
-    }
-  };
-
   const getMoodLabel = () => {
     switch (summary.mood) {
       case 'positive':
@@ -60,44 +49,33 @@ export function CallSummaryCard({ summary }: CallSummaryCardProps) {
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-200">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-cornflower-100 to-cornflower-100 rounded-xl flex items-center justify-center">
-            <MessageCircle className="w-6 h-6 text-cornflower-700" />
+      <div className="pb-6 border-b border-slate-200">
+        <h3 className="font-bold text-lg text-slate-900 mb-4">Call Details</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="flex items-center gap-2 text-slate-700">
+            <Calendar className="w-4 h-4 text-cornflower-600" />
+            <span className="text-sm">{summary.date}</span>
           </div>
-          <div>
-            <h3 className="font-bold text-lg text-slate-900">Call Summary</h3>
-            <div className="flex items-center gap-3 text-sm text-slate-600 mt-1">
-              <span className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                {summary.date}
-              </span>
-              <span className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                {summary.time}
-              </span>
-            </div>
+          <div className="flex items-center gap-2 text-slate-700">
+            <Clock className="w-4 h-4 text-cornflower-600" />
+            <span className="text-sm">{summary.time}</span>
           </div>
-        </div>
-        <div className="text-sm text-slate-600 bg-slate-50 px-3 py-1.5 rounded-lg self-start sm:self-auto">
-          {summary.duration}
+          <div className="flex items-center gap-2 text-slate-700">
+            <MessageCircle className="w-4 h-4 text-cornflower-600" />
+            <span className="text-sm">{summary.duration}</span>
+          </div>
         </div>
       </div>
 
       <div>
-        <div className="flex items-center justify-between mb-3">
-          <h4 className="font-semibold text-slate-900 flex items-center gap-2">
-            {getMoodIcon()}
-            Overall Mood
-          </h4>
-          <span className="text-sm font-medium text-slate-700">{getMoodLabel()}</span>
-        </div>
-        <div className="bg-slate-100 rounded-full h-3 overflow-hidden">
-          <div
-            className={`h-full ${getMoodColor()} rounded-full transition-all duration-500`}
-            style={{ width: `${summary.moodScore}%` }}
-          />
-        </div>
+        <h4 className="font-semibold text-slate-900 flex items-center gap-2 mb-3">
+          {getMoodIcon()}
+          Overall Mood
+          <span className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            {getMoodLabel()}
+          </span>
+        </h4>
+        <p className="text-slate-700 leading-relaxed">{summary.moodDescription}</p>
       </div>
 
       <div>
@@ -115,15 +93,8 @@ export function CallSummaryCard({ summary }: CallSummaryCardProps) {
       </div>
 
       <div>
-        <h4 className="font-semibold text-slate-900 mb-3">Conversation Highlights</h4>
-        <ul className="space-y-2">
-          {summary.highlights.map((highlight, index) => (
-            <li key={index} className="flex gap-2 text-slate-700">
-              <span className="text-cornflower-600 mt-1">•</span>
-              <span>{highlight}</span>
-            </li>
-          ))}
-        </ul>
+        <h4 className="font-semibold text-slate-900 mb-3">General Notes</h4>
+        <p className="text-slate-700 leading-relaxed">{summary.generalNotes}</p>
       </div>
 
       {summary.quote && (
@@ -131,7 +102,9 @@ export function CallSummaryCard({ summary }: CallSummaryCardProps) {
           <div className="flex gap-3">
             <Quote className="w-5 h-5 text-cornflower-600 flex-shrink-0 mt-1" />
             <div>
-              <p className="text-slate-700 italic leading-relaxed mb-2">"{summary.quote}"</p>
+              <p className="text-slate-700 italic leading-relaxed mb-2">
+                &ldquo;{summary.quote}&rdquo;
+              </p>
               <p className="text-sm text-slate-600">Memorable moment from the call</p>
             </div>
           </div>
@@ -153,10 +126,11 @@ export function CallSummaryCard({ summary }: CallSummaryCardProps) {
               }`}
             />
             <div>
-              <h5 className="font-semibold text-slate-900 mb-1">
-                {summary.alert.type === 'warning' ? 'Attention Needed' : 'Notable Mention'}
-              </h5>
-              <p className="text-slate-700">{summary.alert.message}</p>
+              <h5 className="font-semibold text-slate-900 mb-2">Any Noteworthy Concerns</h5>
+              <p className="text-slate-700 mb-3">{summary.alert.message}</p>
+              <p className="text-xs text-slate-500 italic">
+                HelloTelle is not a medical or emergency service — we simply help you stay aware and connected.
+              </p>
             </div>
           </div>
         </div>
@@ -164,4 +138,3 @@ export function CallSummaryCard({ summary }: CallSummaryCardProps) {
     </div>
   );
 }
-

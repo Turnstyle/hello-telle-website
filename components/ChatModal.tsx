@@ -19,32 +19,32 @@ interface ChatModalProps {
 
 const BOT_RESPONSES: Record<string, string[]> = {
   greeting: [
-    "Hi! I'm here to help you learn about Hello Telle. What questions do you have?",
-    "Hello! Thanks for your interest in Hello Telle. How can I assist you today?",
+    "Hi! I'm here to help you learn about HelloTelle. What questions do you have?",
+    "Hello! Thanks for your interest in HelloTelle. How can I assist you today?",
   ],
   features: [
-    "Hello Telle calls your loved ones regularly, has natural conversations, and sends you beautiful summaries with insights about their wellbeing. We detect mood changes and alert you to any concerns with care.",
-    "Great question! Hello Telle works through simple phone calls - no apps or tech needed on their end. After each call, you receive a summary with conversation highlights, mood insights, and meaningful moments.",
+    "HelloTelle calls your loved ones regularly, has natural conversations, and sends you beautiful summaries with insights about their wellbeing. We detect mood changes and alert you to any concerns with care.",
+    "Great question! HelloTelle works through simple phone calls - no apps or tech needed on their end. After each call, you receive a summary with conversation highlights, mood insights, and meaningful moments.",
   ],
   pricing: [
     "We're currently in our waitlist phase! You can secure your spot for just $5 (fully refundable). Once we launch in Spring 2025, alpha members get exclusive founder pricing.",
     "The waitlist deposit is $5 and 100% refundable. This secures your priority access when we launch. We'll announce full pricing details to waitlist members first!",
   ],
   seniors: [
-    "Perfect for seniors! They just need a phone - that's it. No apps, no passwords, no complicated technology. Hello Telle calls them like a friend would.",
-    "Your loved one doesn't need any tech at all! Hello Telle makes regular phone calls to their existing phone number. It's as simple as answering the phone.",
+    "Perfect for seniors! They just need a phone - that's it. No apps, no passwords, no complicated technology. HelloTelle calls them like a friend would.",
+    "Your loved one doesn't need any tech at all! HelloTelle makes regular phone calls to their existing phone number. It's as simple as answering the phone.",
   ],
   magic: [
-    "Hello Telle listens, learns, and remembers what matters most. Every conversation feels warm, personal, and genuinely caring. It's almost magical!",
-    "The magic is in how Hello Telle brings you closer to your loved ones. It's an intelligent companion that makes connection effortless.",
+    "HelloTelle listens, learns, and remembers what matters most. Every conversation feels warm, personal, and genuinely caring. It's almost magical!",
+    "The magic is in how HelloTelle brings you closer to your loved ones. It's an intelligent companion that makes connection effortless.",
   ],
   demo: [
-    "I'd love to show you! Imagine Hello Telle calling your mom: 'Hi Helen, how are you today?' She responds naturally, and Hello Telle asks about her day, listens to stories, and notices if something seems off.",
-    "Here's a real example: Hello Telle might ask 'Did you enjoy your morning walk today?' and engage in warm conversation about the weather, her garden, or whatever she wants to talk about. It feels genuinely human!",
+    "I'd love to show you! Imagine HelloTelle calling your mom: 'Hi Helen, how are you today?' She responds naturally, and HelloTelle asks about her day, listens to stories, and notices if something seems off.",
+    "Here's a real example: HelloTelle might ask 'Did you enjoy your morning walk today?' and engage in warm conversation about the weather, her garden, or whatever she wants to talk about. It feels genuinely human!",
   ],
   help: [
-    "I can help you learn about Hello Telle's features, pricing, how it works for seniors, or give you a demo. What interests you most?",
-    "Feel free to ask me anything! Common questions are about how Hello Telle works, what it costs, whether it's easy for seniors, or what makes it so special.",
+    "I can help you learn about HelloTelle's features, pricing, how it works for seniors, or give you a demo. What interests you most?",
+    "Feel free to ask me anything! Common questions are about how HelloTelle works, what it costs, whether it's easy for seniors, or what makes it so special.",
   ],
   default: [
     "That's a great question! For detailed information, I'd recommend checking our FAQ page or joining our waitlist to get updates directly from our team.",
@@ -56,7 +56,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hi! I'm here to help you learn about Hello Telle. What questions do you have?",
+      text: "Hi! I'm here to help you learn about HelloTelle. What questions do you have?",
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -172,7 +172,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl h-[600px] max-h-[90vh] flex flex-col animate-fade-in">
         <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-200 bg-gradient-to-r from-cornflower-500 to-cornflower-600 text-white rounded-t-2xl">
           <div>
-            <h3 className="text-xl font-bold">Chat with Hello Telle Support</h3>
+            <h3 className="text-xl font-bold">Chat with HelloTelle Support</h3>
             <p className="text-sm text-cornflower-50">Simulated AI Assistant</p>
           </div>
           <button

@@ -72,9 +72,9 @@ export default function CareersPage() {
             </div>
 
             <div className="card p-8 bg-gradient-to-br from-cornflower-50 to-white text-center">
-              <h3 className="text-2xl font-bold mb-4">Don\'t see a perfect fit?</h3>
+              <h3 className="text-2xl font-bold mb-4">Don&rsquo;t see a perfect fit?</h3>
               <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-                We\'re always looking for talented, passionate people. Send us your resume and tell us how you\'d like to contribute.
+                We&rsquo;re always looking for talented, passionate people. Send us your resume and tell us how you&rsquo;d like to contribute.
               </p>
               <a href="mailto:careers@hellotelle.com" className="btn-secondary">
                 Get in Touch

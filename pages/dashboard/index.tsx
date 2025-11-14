@@ -15,7 +15,7 @@ function DashboardOverview() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">Welcome Back!</h1>
-            <p className="text-slate-600">Here\'s how your loved ones are doing</p>
+            <p className="text-slate-600">Here&rsquo;s how your loved ones are doing</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

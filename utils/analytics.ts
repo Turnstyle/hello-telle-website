@@ -1,9 +1,11 @@
 /**
  * Analytics utility for tracking events and page views
  */
+type AnalyticsProperties = Record<string, unknown>;
+
 interface AnalyticsEvent {
   event: string;
-  properties?: Record<string, any>;
+  properties?: AnalyticsProperties;
   userId?: string;
 }
 
@@ -15,12 +17,12 @@ class Analytics {
     this.sessionId = Math.random().toString(36).substr(2, 9);
   }
 
-  identify(userId: string, traits?: Record<string, any>) {
+  identify(userId: string, traits?: AnalyticsProperties) {
     this.userId = userId;
     console.log('[Analytics] Identify:', { userId, traits });
   }
 
-  track(event: string, properties?: Record<string, any>) {
+  track(event: string, properties?: AnalyticsProperties) {
     const payload: AnalyticsEvent = {
       event,
       properties: {
@@ -34,7 +36,7 @@ class Analytics {
     console.log('[Analytics] Track:', payload);
   }
 
-  page(name: string, properties?: Record<string, any>) {
+  page(name: string, properties?: AnalyticsProperties) {
     this.track('Page View', {
       pageName: name,
       ...properties,
@@ -48,4 +50,3 @@ class Analytics {
 }
 
 export const analytics = new Analytics();
-

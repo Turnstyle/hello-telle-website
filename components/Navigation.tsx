@@ -4,6 +4,7 @@
  */
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/contexts/AuthContext';
 import { LogOut, User, Menu, X } from 'lucide-react';
@@ -20,6 +21,7 @@ export function Navigation() {
     { href: '/pricing', label: 'Pricing' },
     { href: '/faq', label: 'FAQ' },
     { href: '/blog', label: 'Blog' },
+    { href: '/support', label: 'Support' },
     { href: '/careers', label: 'Careers' },
   ];
 
@@ -46,14 +48,16 @@ export function Navigation() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative">
-                <img
+              <div className="relative h-10 w-10">
+                <Image
                   src="/57772_hellotelle_DP+RM-01.png"
-                  alt="Hello Telle"
-                  className="h-10 w-auto transition-transform group-hover:scale-105"
+                  alt="HelloTelle"
+                  fill
+                  className="object-contain transition-transform group-hover:scale-105"
+                  sizes="40px"
                 />
               </div>
-              <span className="text-xl font-bold gradient-text">Hello Telle</span>
+              <span className="text-xl font-bold gradient-text">HelloTelle</span>
             </Link>
           </div>
 
@@ -194,4 +198,3 @@ export function Navigation() {
     </nav>
   );
 }
-

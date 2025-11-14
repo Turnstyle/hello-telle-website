@@ -1,7 +1,7 @@
 /**
  * Pricing page with plan selection
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Check, ThumbsUp, ThumbsDown, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
@@ -13,6 +13,16 @@ import { Navigation } from '@/components/Navigation';
 
 type BillingCycle = 'monthly' | 'annual';
 type Tier = 'free' | 'standard' | 'premium';
+
+const createSessionId = () => {
+  if (typeof globalThis !== 'undefined') {
+    const cryptoRef = globalThis.crypto;
+    if (cryptoRef?.randomUUID) {
+      return cryptoRef.randomUUID();
+    }
+  }
+  return Math.random().toString(36).slice(2, 11);
+};
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
@@ -30,12 +40,7 @@ export default function PricingPage() {
 
   const { showToast } = useToast();
 
-  useEffect(() => {
-    fetchVotes();
-    loadUserVotes();
-  }, []);
-
-  const fetchVotes = async () => {
+  const fetchVotes = useCallback(async () => {
     if (!isSupabaseConfigured()) {
       return;
     }
@@ -68,50 +73,84 @@ export default function PricingPage() {
     } catch (error) {
       console.warn('Error fetching votes:', error);
     }
-  };
+  }, []);
 
-  const loadUserVotes = () => {
+  const loadUserVotes = useCallback(() => {
     if (typeof window !== 'undefined') {
       const savedVotes = localStorage.getItem('pricing_votes');
       if (savedVotes) {
         setUserVotes(JSON.parse(savedVotes));
       }
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const run = async () => {
+      await fetchVotes();
+      loadUserVotes();
+    };
+
+    void run();
+  }, [fetchVotes, loadUserVotes]);
 
   const handleVote = async (tier: Tier, voteType: 'upvote' | 'downvote') => {
     if (typeof window === 'undefined') return;
-    
-    if (!isSupabaseConfigured()) {
-      showToast('Service is not configured. Vote saved locally.', 'info');
-      const newUserVotes = { ...userVotes, [tier]: voteType };
-      setUserVotes(newUserVotes);
-      localStorage.setItem('pricing_votes', JSON.stringify(newUserVotes));
-      return;
-    }
 
-    const sessionId = localStorage.getItem('session_id') || Math.random().toString(36).substr(2, 9);
+    const updateLocalVotes = (value: 'upvote' | 'downvote' | null) => {
+      const nextVotes = { ...userVotes, [tier]: value };
+      setUserVotes(nextVotes);
+      localStorage.setItem('pricing_votes', JSON.stringify(nextVotes));
+    };
+
+    const sessionId = localStorage.getItem('session_id') || createSessionId();
     localStorage.setItem('session_id', sessionId);
 
     const currentVote = userVotes[tier];
+
+    if (!isSupabaseConfigured()) {
+      const nextValue = currentVote === voteType ? null : voteType;
+      updateLocalVotes(nextValue);
+      showToast(nextValue ? 'Vote saved locally.' : 'Vote removed.', 'info');
+      return;
+    }
+
     if (currentVote === voteType) {
+      try {
+        const { error } = await supabase
+          .from('pricing_feedback')
+          .delete()
+          .eq('session_id', sessionId)
+          .eq('plan_tier', tier)
+          .eq('vote_type', voteType);
+
+        if (!error) {
+          updateLocalVotes(null);
+          fetchVotes();
+          showToast('Vote removed', 'info');
+        } else {
+          showToast('Error removing vote. Please try again.', 'error');
+        }
+      } catch (error) {
+        console.error('Error removing vote:', error);
+        showToast('Error removing vote. Please try again.', 'error');
+      }
+      return;
+    }
+
+    if (currentVote && currentVote !== voteType) {
       showToast('You already voted on this plan', 'info');
       return;
     }
 
     try {
-      const { error } = await supabase
-        .from('pricing_feedback')
-        .insert({
-          session_id: sessionId,
-          plan_tier: tier,
-          vote_type: voteType,
-        });
+      const { error } = await supabase.from('pricing_feedback').insert({
+        session_id: sessionId,
+        plan_tier: tier,
+        vote_type: voteType,
+      });
 
       if (!error) {
-        const newUserVotes = { ...userVotes, [tier]: voteType };
-        setUserVotes(newUserVotes);
-        localStorage.setItem('pricing_votes', JSON.stringify(newUserVotes));
+        updateLocalVotes(voteType);
         fetchVotes();
         showToast('Thank you for your feedback!', 'success');
       } else {
@@ -130,7 +169,7 @@ export default function PricingPage() {
       monthlyPrice: 0,
       annualPrice: 0,
       summaries: '1 summary per month',
-      description: 'Perfect for testing if your senior would enjoy Telle',
+      description: 'Perfect for testing if your senior would enjoy HelloTelle',
       features: [
         '1 conversation summary per month',
         'Basic mood insights',
@@ -146,7 +185,7 @@ export default function PricingPage() {
       name: 'Standard',
       tier: 'standard' as Tier,
       monthlyPrice: 20,
-      annualPrice: 100,
+      annualPrice: 200,
       summaries: '1 summary per week',
       description: 'Stay regularly connected with weekly check-ins',
       features: [
@@ -165,7 +204,7 @@ export default function PricingPage() {
       name: 'Premium',
       tier: 'premium' as Tier,
       monthlyPrice: 60,
-      annualPrice: 500,
+      annualPrice: 600,
       summaries: 'Unlimited summaries',
       description: 'Maximum connection with daily or on-demand calls',
       features: [
@@ -185,8 +224,12 @@ export default function PricingPage() {
 
   const getPrice = (tier: typeof tiers[0]) => {
     if (tier.monthlyPrice === 0) return 'Free';
-    const price = billingCycle === 'monthly' ? tier.monthlyPrice : tier.annualPrice / 12;
-    return `$${price}/mo`;
+    if (billingCycle === 'monthly') {
+      return `$${tier.monthlyPrice}/mo`;
+    }
+    const monthlyEquivalent = tier.annualPrice / 12;
+    const formatted = Number.isInteger(monthlyEquivalent) ? monthlyEquivalent : monthlyEquivalent.toFixed(2);
+    return `$${formatted}/mo billed annually`;
   };
 
   const getSavings = (tier: typeof tiers[0]) => {
@@ -205,7 +248,7 @@ export default function PricingPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="mb-6">Simple, Transparent Pricing</h1>
             <p className="text-xl text-slate-600 leading-relaxed mb-8">
-              Start free, upgrade when you\'re ready. No hidden fees, cancel anytime.
+              Start free, upgrade when you&rsquo;re ready. No hidden fees, cancel anytime.
             </p>
 
             <div className="inline-flex items-center bg-white rounded-lg p-1 shadow-md">
@@ -228,7 +271,7 @@ export default function PricingPage() {
                 }`}
               >
                 Annual
-                <Badge variant="success" className="text-xs">Save up to 58%</Badge>
+                <Badge variant="success" className="text-xs">Save up to 17%</Badge>
               </button>
             </div>
           </div>
@@ -336,4 +379,3 @@ export default function PricingPage() {
     </>
   );
 }
-

@@ -90,10 +90,10 @@ export function CallSummaryShowcase() {
 
       <div className="text-center pt-4">
         <p className="text-sm text-slate-600">
-          <span className="font-medium">Real examples</span> of what you'll receive after each call with your loved one
+          <span className="font-medium">Real examples</span> of the simple, high-level updates you&rsquo;ll receive to stay informed
+          and reassured
         </p>
       </div>
     </div>
   );
 }
-

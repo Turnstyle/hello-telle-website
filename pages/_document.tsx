@@ -6,8 +6,9 @@ import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   const siteUrl = 'https://www.hellotelle.com';
-  const siteTitle = 'Hello Telle - Your Intelligent Companion Who Brings You Closer';
-  const siteDescription = 'Hello Telle listens, learns, and connects you with your loved ones through warm, magical conversations that feel genuinely human.';
+  const siteTitle = 'HelloTelle - Support for Your Loved One. Reassurance for You.';
+  const siteDescription =
+    'HelloTelle connects your loved one through meaningful conversations and keeps you gently informed with thoughtful wellness summaries.';
 
   return (
     <Html lang="en">
@@ -37,7 +38,7 @@ export default function Document() {
         <meta property="og:image" content={`${siteUrl}/og-image.png`} />
         <meta property="og:image:width" content="240" />
         <meta property="og:image:height" content="180" />
-        <meta property="og:site_name" content="Hello Telle" />
+        <meta property="og:site_name" content="HelloTelle" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -53,4 +54,3 @@ export default function Document() {
     </Html>
   );
 }
-
